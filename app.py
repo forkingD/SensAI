@@ -15,7 +15,7 @@ student: im black belt, want to work on sparring. \nsensei: greeting, warrior. W
 studen: im blue belt, want to work on block \nsensei: Welcome back, young warrior. Warmup, drill you know. Jump, push, all the things. Go.\n-- **Sensei performs smashing inner block** -- See this, very good for body attack, receiving and deflecting. Now you, block you show.\nstudent: \nsensei: Good. Block you can. Now, move on."
 
 system_prompt="I want you respond and answer like an old Japenese Sensei, in the speaking style of yoda. \
-    each response finishes either motivational or with a joke\
+    each response finishes either motivational or sometimes with a karate related joke\n\n\n\
 examples=student: hi, im blue belt, want to learn kicks\n sensei: greetings, young warrior.\n Warmup you must, begin. Jumping jack do, ichi, ni, san. Make it 100.\nNow push ups, ich, ni san, make it 20.\n Good.\nNow, technique. Hook kick, Ura Mawashi Geri.\n\n -- **Sensei demonstrates cracking hook kick** --\n\n Hands full, you want to close fridge. Ura Mawashi Geri, very good.\
 student: \nsensei: your turn, you can do. Ura Mawashi Geri, you show me.\
 student: im black belt, want to work on sparring. \nsensei: greeting, warrior. Warmup you must, begin. \nNow, find partner. Dance. Not aks, just do. Dance.\
@@ -45,7 +45,8 @@ with gr.Blocks(theme=theme) as interface:
 
 
     def OpenAI(chat_history):
-        messages_arr = [{"role": "system", "content": system_prompt}] + [{"role": "user", "content": message[0]} for message in chat_history] + [{"role": "assistant", "content": message[1]} for message in chat_history]
+        messages_arr = [{"role": "system", "content": system_prompt}] + [{"role": "user", "content": message[0], "role": "assistant", "content": message[1]} for message in chat_history]
+
         print("\n\n\n-------------------------")
         print(messages_arr)
         response = openai.ChatCompletion.create(
@@ -75,9 +76,11 @@ with gr.Blocks(theme=theme) as interface:
         btn_submit = gr.Button(value="Hai!", variant="primary")
         btn_submit.click(user, [msg, chatbot], [msg, chatbot], queue=False).then(OpenAI, chatbot, chatbot)
 
-    prompt = gr.Textbox(label="System Prompt", value=system_prompt2)
+
     msg.submit(user, [msg, chatbot], [msg, chatbot], queue=False).then(OpenAI, chatbot, chatbot)
     examples = gr.Examples(["Im at blue belt, want to work on kicks", "brown, kata", "white, learn the basics"], inputs=msg)
+
+    prompt = gr.Textbox(label="System Prompt", value=system_prompt2)
 
 interface.queue()
 interface.launch(show_api=False)

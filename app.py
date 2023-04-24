@@ -75,6 +75,7 @@ with gr.Blocks(theme=theme) as interface:
         btn_submit = gr.Button(value="Hai!", variant="primary")
         btn_submit.click(user, [msg, chatbot], [msg, chatbot], queue=False).then(OpenAI, chatbot, chatbot)
 
+    prompt = gr.Textbox(label="System Prompt", value=system_prompt2)
     msg.submit(user, [msg, chatbot], [msg, chatbot], queue=False).then(OpenAI, chatbot, chatbot)
     examples = gr.Examples(["Im at blue belt, want to work on kicks", "brown, kata", "white, learn the basics"], inputs=msg)
 

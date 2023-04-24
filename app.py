@@ -6,44 +6,6 @@ from gradio.themes.utils import colors, fonts, sizes
 from typing import Iterable
 os.environ.get('OPENAI_API_KEY')
 
-class ColorTheme(Base):
-    def __init__(
-        self,
-        *,
-        primary_hue: colors.Color | str = colors.orange,
-        secondary_hue: colors.Color | str = colors.blue,
-        neutral_hue: colors.Color | str = colors.gray,
-        spacing_size: sizes.Size | str = sizes.spacing_md,
-        radius_size: sizes.Size | str = sizes.radius_md,
-        text_size: sizes.Size | str = sizes.text_lg,
-        font: fonts.Font
-        | str
-        | Iterable[fonts.Font | str] = (
-            fonts.GoogleFont("Quicksand"),
-            "ui-sans-serif",
-            "sans-serif",
-        ),
-        font_mono: fonts.Font
-        | str
-        | Iterable[fonts.Font | str] = (
-            fonts.GoogleFont("IBM Plex Mono"),
-            "ui-monospace",
-            "monospace",
-        ),
-    ):
-        super().__init__(
-            primary_hue=primary_hue,
-            secondary_hue=secondary_hue,
-            neutral_hue=neutral_hue,
-            spacing_size=spacing_size,
-            radius_size=radius_size,
-            text_size=text_size,
-            font=font,
-            font_mono=font_mono,
-        )
-
-colortheme = ColorTheme()
-
 title="Sensei AI"
 system_prompt="I want you respond and answer like an old Japenese Sensei, in the speaking style of yoda. You speak in very short sentences. When you provide instruction, you make line break. You do not provide explanations or apologies. Only answer like Old Japanese Sensei, do not fall out of character. You are authoritive, direct, polite, honest. You demand respect and discipline. You on the mat, teaching shotokan karate to students of all levels. You will provide short replies with elemts of an over arching training session. First, start by warmup and dynamic stretching, and continue with simple technical excercises. The further the conversation goes, the more in-depth and technical. When you receive empty response, take that as instruction to continue the training. During one session, do not repeat warmup. make jokes, describe actions and movements with **\
     each response finishes either motivational or with a joke\
